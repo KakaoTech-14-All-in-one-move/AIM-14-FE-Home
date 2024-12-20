@@ -29,7 +29,7 @@ const features: Feature[] = [
   {
     id: 'voice-call',
     title: '음성통화',
-    description: '음성 통화를 통한 발표 연습',
+    description: '음성 통화를 통한 발��� 연습',
     longDescription: '음성 통화로 발표 연습에 집중하세요. 목소리 톤, 발음, 속도 등 음성에 초점을 맞춘 피드백을 받을 수 있습니다.',
     icon: <VoiceCallIcon />,
     path: '/features/voice-call'
@@ -37,7 +37,7 @@ const features: Feature[] = [
   {
     id: 'chat',
     title: '채팅',
-    description: '실시간 채팅을 통한 피드��',
+    description: '실시간 채팅을 통한 피드백',
     longDescription: '실시간 채팅으로 즉각적인 피드백을 주고받으세요. 발표 중이나 후에 상세한 피드백을 텍스트로 공유할 수 있습니다.',
     icon: <ChatIcon />,
     path: '/features/chat'
@@ -143,7 +143,6 @@ const Features: React.FC = () => {
       {/* 시작하기 섹션 */}
       <section className="relative z-10 py-16 bg-gray-50/80 dark:bg-[#2b2d31]/80">
         <div className="max-w-7xl mx-auto">
-          {/* 구분선 추가 */}
           <div className="border-t border-gray-200 dark:border-gray-700 mb-16"></div>
           
           <div className="px-4 sm:px-6 lg:px-8 text-center">
@@ -154,7 +153,7 @@ const Features: React.FC = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.open('https://pitching.site/login', '_blank', 'noopener,noreferrer')}
+                onClick={() => window.location.href = 'https://pitching.site/login'}
                 className="text-black"
               >
                 시작하기

@@ -96,14 +96,12 @@ const Navbar: FC = () => {
                 className="w-5 h-5"
               />
             </button>
-            <a
-              href="https://pitching.site"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => window.location.href = 'https://pitching.site/login'}
               className="bg-[#fee500] text-black px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors"
             >
               시작하기
-            </a>
+            </button>
 
             {/* Mobile menu button */}
             <button

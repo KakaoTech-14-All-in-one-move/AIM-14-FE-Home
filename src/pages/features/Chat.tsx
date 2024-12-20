@@ -135,7 +135,7 @@ const Chat = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.open('https://pitching.site', '_blank', 'noopener,noreferrer')}
+                onClick={() => window.location.href = 'https://pitching.site/login'}
                 className="text-black"
               >
                 시작하기

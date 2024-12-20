@@ -92,6 +92,17 @@ const BlogSlider: FC = () => {
                   onMouseEnter={() => setIsAutoPlaying(false)}
                   onMouseLeave={() => setIsAutoPlaying(true)}
                 >
+                  <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
+                    <img
+                      src={post.thumbnail}
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = '/images/default-thumbnail.jpg';
+                      }}
+                    />
+                  </div>
+                  
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${categoryColors[post.category]}`}>

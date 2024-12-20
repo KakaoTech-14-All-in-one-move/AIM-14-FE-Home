@@ -15,8 +15,8 @@ const Blog: FC = () => {
   }, []);
 
   const categoryColors = {
-    '발표 팁': 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100',
-    '성공 사례': 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100',
+    '에세이': 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100',
+    '사용자 후기': 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100',
     '업데이트': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100',
     '뉴스': 'bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-100'
   };

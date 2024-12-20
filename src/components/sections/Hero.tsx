@@ -19,7 +19,7 @@ const Hero = () => {
       <div className="pt-24 pb-12">
         <div className="max-w-[1280px] mx-auto px-8">
           <div className={`relative rounded-[2rem] overflow-hidden ${SECTION_BG}`}
-            style={{ height: 'calc((100vh - 35rem) * 0.67)' }}>
+            style={{ height: 'calc((100vh - 20rem) * 0.67)' }}>
             
             {/* 배경 이미지 */}
             <div 

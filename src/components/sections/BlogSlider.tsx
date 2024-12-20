@@ -10,8 +10,8 @@ const BlogSlider: FC = () => {
   const visibleItems = 4;
 
   const categoryColors = {
-    '발표 팁': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-    '성공 사례': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
+    '에세이': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+    '사용자 후기': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
     '업데이트': 'bg-[#fee500] text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
     '뉴스': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'
   };

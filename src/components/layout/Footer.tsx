@@ -100,8 +100,8 @@ const Footer: React.FC = () => {
             <div className="flex flex-col space-y-1 text-sm text-gray-600 dark:text-gray-400">
               <div>© 2024 Kakaotech-Pitching. All rights reserved.</div>
               <div>Address: 660, Daewangpangyo-ro, Bundang-gu, Seongnam-si, Gyeonggi-do, 13493</div>
-              <div className="text-xs text-gray-400 dark:text-gray-500">Pitching collaborates with Kakao Corp. </div>
-              <div className="text-[10px] text-gray-400 dark:text-gray-500">This Page Designed by Toby.kim </div>
+              <div className="text-xs text-gray-400 dark:text-gray-500">Pitching collaborates with Kakao Corp. and Goorm. </div>
+              <div className="text-[11px] text-gray-400 dark:text-gray-500">This Page Designed by Toby.kim </div>
             </div>
 
             {/* 오른쪽: 소셜 링크와 관련 사이트 */}

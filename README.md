@@ -1,7 +1,10 @@
-# AIM-14-FE-Home
-# Pitching - AI 기반 발표 연습 플랫폼
+# Pitching - AI 기반 발표 연습 플랫폼 소개 페이지. 
+- 누구나 편하게 소통할 수 있게, 자신있게, Pitching. "모두가 자신 있게 소통하고 연결할 수 있는 세상을 만듭니다."
 
 발표 실력 향상을 위한 AI 기반 발표 연습 플랫폼입니다. 화상통화, 음성통화, 채팅, AI 피드백 등 다양한 기능을 통해 효과적인 발표 연습이 가능합니다.
+
+![iScreen Shoter - Google Chrome - 241220180300](https://github.com/user-attachments/assets/2a277973-d3e8-4e70-ad7b-45c281cf4ecb)
+![iScreen Shoter - Google Chrome - 241220180316](https://github.com/user-attachments/assets/80b88633-5e34-4606-b0ba-9730c326db10)
 
 ---
 

@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.795fd3bc.css",
+    "main.js": "/static/js/main.c7729058.js",
+    "static/media/background.jpg": "/static/media/background.a0175275870116652825.jpg",
+    "static/media/KakaoOTFRegular.otf": "/static/media/KakaoOTFRegular.f9598b02b11f7d5aaf93.otf",
+    "static/media/fig.gif": "/static/media/fig.109cf580efb8fdcb9dfd.gif",
+    "static/media/sun.png": "/static/media/sun.c4f06470f564606940e2.png",
+    "static/media/moon.png": "/static/media/moon.fbe76e918f300cceded2.png",
+    "index.html": "/index.html",
+    "main.795fd3bc.css.map": "/static/css/main.795fd3bc.css.map",
+    "main.c7729058.js.map": "/static/js/main.c7729058.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.795fd3bc.css",
+    "static/js/main.c7729058.js"
+  ]
+}

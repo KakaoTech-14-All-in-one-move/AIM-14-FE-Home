@@ -1,0 +1,15 @@
+{
+  "short_name": "Pitching",
+  "name": "Pitching - AI 기반 발표 연습 플랫폼",
+  "icons": [
+    {
+      "src": "images/icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+} 

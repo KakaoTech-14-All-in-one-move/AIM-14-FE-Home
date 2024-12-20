@@ -8,6 +8,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   isLoading?: boolean;
+  onClick?: () => void;
+  href?: string;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -16,7 +18,8 @@ const Button: FC<ButtonProps> = ({
   size = 'md',
   isLoading = false,
   className,
-  ...props
+  onClick,
+  href,
 }) => {
   const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors disabled:opacity-50';
   
@@ -32,11 +35,19 @@ const Button: FC<ButtonProps> = ({
     lg: 'px-6 py-3 text-lg'
   };
 
+  const handleClick = () => {
+    if (href) {
+      window.location.href = href;
+    } else if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <button
+      onClick={handleClick}
       className={twMerge(baseStyles, variants[variant], sizes[size], className)}
       disabled={isLoading}
-      {...props}
     >
       {isLoading && (
         <svg className="animate-spin -ml-1 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24">

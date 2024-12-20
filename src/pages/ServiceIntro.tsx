@@ -193,7 +193,6 @@ const ServiceIntro = () => {
       {/* 시작하기 섹션 */}
       <section className="py-16 bg-gray-50/80 dark:bg-[#2b2d31]/80">
         <div className="max-w-7xl mx-auto">
-          {/* 구분선 추가 */}
           <div className="border-t border-gray-200 dark:border-gray-700 mb-16"></div>
           
           <div className="px-4 sm:px-6 lg:px-8 text-center">
@@ -204,7 +203,7 @@ const ServiceIntro = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.open('https://pitching.site/login', '_blank', 'noopener,noreferrer')}
+                onClick={() => window.location.href = 'https://pitching.site/login'}
                 className="text-black"
               >
                 시작하기

@@ -13,7 +13,10 @@ const Footer: React.FC = () => {
               Pitching
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
-            "모두가 자신 있게 소통하고 연결할 수 있는 세상을 만듭니다."
+            "모두가 자신 있게 소통하며 서로
+            </p>
+            <p className="text-gray-600 dark:text-gray-300">
+             연결될 수 있는 세상을 만듭니다."
             </p>
           </div>
 
@@ -97,7 +100,8 @@ const Footer: React.FC = () => {
             <div className="flex flex-col space-y-1 text-sm text-gray-600 dark:text-gray-400">
               <div>© 2024 Kakaotech-Pitching. All rights reserved.</div>
               <div>Address: 660, Daewangpangyo-ro, Bundang-gu, Seongnam-si, Gyeonggi-do, 13493</div>
-              <div className="text-xs text-gray-400 dark:text-gray-500">This Page Designed by Toby.kim </div>
+              <div className="text-xs text-gray-400 dark:text-gray-500">Pitching collaborates with Kakao Corp. and Goorm. </div>
+              <div className="text-[11px] text-gray-400 dark:text-gray-500">This Page Designed by Toby.kim </div>
             </div>
 
             {/* 오른쪽: 소셜 링크와 관련 사이트 */}

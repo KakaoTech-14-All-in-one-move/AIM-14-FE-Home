@@ -42,6 +42,10 @@ const Navbar: FC = () => {
     }
   };
 
+  const handleLogin = () => {
+    window.location.href = 'https://pitching.site/login';
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-50 dark:bg-[#2b2d31] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,7 +101,7 @@ const Navbar: FC = () => {
               />
             </button>
             <button
-              onClick={() => window.location.href = 'https://pitching.site/login'}
+              onClick={handleLogin}
               className="bg-[#fee500] text-black px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors"
             >
               시작하기

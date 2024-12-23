@@ -29,7 +29,7 @@ const features: Feature[] = [
   {
     id: 'voice-call',
     title: '음성통화',
-    description: '음성 통화를 통한 발��� 연습',
+    description: '음성 통화를 통한 발표 연습',
     longDescription: '음성 통화로 발표 연습에 집중하세요. 목소리 톤, 발음, 속도 등 음성에 초점을 맞춘 피드백을 받을 수 있습니다.',
     icon: <VoiceCallIcon />,
     path: '/features/voice-call'

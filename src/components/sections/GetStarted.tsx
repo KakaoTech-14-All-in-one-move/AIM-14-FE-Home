@@ -1,7 +1,11 @@
 import React from 'react';
 import figImage from '../../assets/images/fig.gif';
 
-const GetStarted = () => {
+const GetStarted: React.FC = () => {
+  const handleLogin = (): void => {
+    window.location.href = 'https://pitching.site/login';
+  };
+
   return (
     <div className="relative bg-gray-50 dark:bg-[#2b2d31] py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,7 +18,7 @@ const GetStarted = () => {
               저희의 AI 기반 발표 피드백 서비스를 경험하고 싶으시면 가입해서 한번 체험해보세요!
             </p>
             <button
-              onClick={() => window.location.href = 'https://pitching.site/login'}
+              onClick={handleLogin}
               className="inline-block px-8 py-4 bg-[#fee500] text-gray-900 font-medium rounded-full 
                 hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105"
             >

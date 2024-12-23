@@ -3,7 +3,7 @@ import figImage from '../../assets/images/fig.gif';
 
 const GetStarted: React.FC = () => {
   const handleLogin = (): void => {
-    window.location.href = 'https://pitching.site/login';
+    window.location.href = '/login';
   };
 
   return (

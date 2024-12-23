@@ -43,7 +43,7 @@ const Navbar: FC = () => {
   };
 
   const handleLogin = () => {
-    window.location.href = 'https://pitching.site/login';
+    window.location.href = '/login';
   };
 
   return (

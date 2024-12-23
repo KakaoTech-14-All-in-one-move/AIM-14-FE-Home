@@ -135,7 +135,7 @@ const VoiceCall = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.location.href = 'https://pitching.site/login'}
+                onClick={() => window.location.href = '/login'}
                 className="text-black"
               >
                 시작하기

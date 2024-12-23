@@ -23,9 +23,9 @@ const ServiceIntro = () => {
               SPEAK EASY, PITCHING!
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-loose">
-              PITCHING은 AI 기반의 실시간 발표 피드백 서비스입니다.<br />
-              발표를 준비하고 연습하는 과정에서 사용자의 발표 태도,<br />
-              시선 처리, 음성 톤 등을 분석하여 즉각적이고 실질적인 개선 포인트를 제공합니다.
+            PITCHING은 "모두가 편하게 소통하고, 자신있게 말하며 연결된 세상을 만들자." 라는 모토를 가지고 만든 플랫폼입니다.<br />
+            발표를 준비하고 연습하는 과정에서 사용자의 발표 태도, 시선 처리, 음성 톤 등을 분석하여 즉각적이고 실질적인 개선 포인트를 제공합니다.<br />
+또한 채팅, 화상 & 음성통화 기능을 통해 현대인의 발표 능력 향상과 원활한 커뮤니케이션을 지원합니다.
             </p>
           </motion.div>
         </div>
@@ -203,7 +203,7 @@ const ServiceIntro = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.location.href = 'https://pitching.site/login'}
+                onClick={() => window.location.href = '/login'}
                 className="text-black"
               >
                 시작하기

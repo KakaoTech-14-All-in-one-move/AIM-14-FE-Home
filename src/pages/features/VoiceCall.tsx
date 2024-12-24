@@ -98,7 +98,7 @@ const VoiceCall = () => {
                     {[
                       {
                         title: '노이즈 캔슬링',
-                        description: '주변 소음을 효과적으로 제거하여 선명한 음성 전달이 가능합니다.'
+                        description: '주변 소음을 효과적으로 제거하여 선명한 음성을 전달이 가능합니다.'
                       },
                       {
                         title: '다자간 통화',
@@ -135,7 +135,7 @@ const VoiceCall = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.location.href = '/login'}
+                onClick={() => window.location.href = 'https://pitching.site/login'}
                 className="text-black"
               >
                 시작하기

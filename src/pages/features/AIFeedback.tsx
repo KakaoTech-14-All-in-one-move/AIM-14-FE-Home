@@ -137,7 +137,7 @@ const AIFeedback = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.location.href = '/login'}
+                onClick={() => window.location.href = 'https://pitching.site/login'}
                 className="text-black"
               >
                 시작하기

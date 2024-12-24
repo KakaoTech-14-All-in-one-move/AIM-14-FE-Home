@@ -1,31 +1,49 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import Slider from 'react-slick';
 import { blogPosts } from '../../data/blogData.ts';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+// 커스텀 CSS 추가
+const customStyles = `
+  .slick-slider {
+    padding-bottom: 45px;
+  }
+  
+  .slick-dots {
+    bottom: -35px;
+  }
+
+  /* 화이트 모드 */
+  .slick-dots li button:before {
+    color: #2d2d36;
+  }
+  .slick-dots li.slick-active button:before {
+    color: #2d2d36;
+  }
+  .slick-prev:before, 
+  .slick-next:before {
+    color: #000; /* 검은색 */
+    font-size: 24px;
+  }
+
+  /* 다크 모드 */
+  .dark .slick-dots li button:before {
+    color: #fee500;
+  }
+  .dark .slick-dots li.slick-active button:before {
+    color: #fee500;
+  }
+  .dark .slick-prev:before, 
+  .dark .slick-next:before {
+    color: #fee500; /* 원하는 색상으로 변경 */
+    font-size: 24px;
+  }
+`;
 
 const BlogSlider: FC = () => {
   const navigate = useNavigate();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  
-  // 화면 크기에 따른 보이는 아이템 수 조절
-  const [visibleItems, setVisibleItems] = useState(4);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setVisibleItems(1); // 모바일
-      } else if (window.innerWidth < 1024) {
-        setVisibleItems(2); // 태블릿
-      } else {
-        setVisibleItems(4); // 데스크탑
-      }
-    };
-
-    handleResize(); // 초기 설정
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const categoryColors = {
     '에세이': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
@@ -34,28 +52,47 @@ const BlogSlider: FC = () => {
     '뉴스': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'
   };
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => 
-      prev === blogPosts.length - visibleItems ? 0 : prev + 1
-    );
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: '40px'
+        }
+      }
+    ]
   };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => 
-      prev === 0 ? blogPosts.length - visibleItems : prev - 1
-    );
-  };
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isAutoPlaying) {
-      interval = setInterval(nextSlide, 3000);
-    }
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
 
   return (
     <section className="py-12 bg-gray-50 dark:bg-[#2d2d36]">
+      {/* 커스텀 스타일 삽입 */}
+      <style>{customStyles}</style>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center mb-8">
           <span className="bg-[#fee500] dark:bg-[#fee500] p-2 rounded-lg mr-2">
@@ -77,57 +114,26 @@ const BlogSlider: FC = () => {
           <h2 className="text-2xl font-bold dark:text-white">Pitching이 달려오면서 전하는 소식</h2>
         </div>
 
-        <div className="relative">
-          <button
-            onClick={prevSlide}
-            className="absolute -left-12 top-1/2 -translate-y-1/2 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-700 hidden md:block"
-          >
-            <svg className="w-6 h-6 text-gray-900 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="absolute -right-12 top-1/2 -translate-y-1/2 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-700 hidden md:block"
-          >
-            <svg className="w-6 h-6 text-gray-900 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          <div className="overflow-hidden pb-4">
-            <motion.div 
-              className="flex gap-4 md:gap-6"
-              animate={{ x: `-${currentIndex * (100 / visibleItems)}%` }}
-              transition={{ duration: 0.5 }}
-            >
-              {blogPosts.map((post, index) => (
-                <motion.div
-                  key={index}
-                  className={`flex-none ${
-                    visibleItems === 1 
-                      ? 'w-full' 
-                      : visibleItems === 2 
-                      ? 'w-[calc(50%-0.5rem)]' 
-                      : 'w-[calc(25%-1.2rem)]'
-                  } bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer`}
-                  onClick={() => navigate(`/blog/${post.slug}`)}
-                  onMouseEnter={() => setIsAutoPlaying(false)}
-                  onMouseLeave={() => setIsAutoPlaying(true)}
-                >
-                  <div className="relative w-full h-40 sm:h-48 overflow-hidden rounded-t-lg">
-                    <img
-                      src={post.thumbnail}
-                      alt={post.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src = '/images/default-thumbnail.jpg';
-                      }}
-                    />
-                  </div>
-                  
-                  <div className="p-4 sm:p-6">
+        <Slider {...settings}>
+          {blogPosts.map((post, index) => (
+            <div key={index} className="px-1 sm:px-2 h-full pb-4">
+              <div
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer h-[380px] flex flex-col"
+                onClick={() => navigate(`/blog/${post.slug}`)}
+              >
+                <div className="relative aspect-[16/9] overflow-hidden rounded-t-lg flex-shrink-0">
+                  <img
+                    src={post.thumbnail}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = '/images/default-thumbnail.jpg';
+                    }}
+                  />
+                </div>
+                
+                <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
+                  <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${categoryColors[post.category]}`}>
                         {post.category}
@@ -136,36 +142,22 @@ const BlogSlider: FC = () => {
                         조회수 {post.views}
                       </span>
                     </div>
-                    <h3 className="font-bold mb-3 dark:text-white">
+                    <h3 className="font-bold mb-3 dark:text-white line-clamp-2">
                       {post.title}
                     </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags.map((tag, tagIndex) => (
-                        <span key={tagIndex} className="text-sm text-gray-600 dark:text-gray-400">
-                          #{tag}
-                        </span>
-                      ))}
-                    </div>
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
-          <div className="flex justify-center mt-6 gap-2">
-            {Array.from({ length: Math.ceil(blogPosts.length / visibleItems) }).map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx * visibleItems)}
-                className={`w-2 h-2 rounded-full ${
-                  Math.floor(currentIndex / visibleItems) === idx 
-                    ? 'bg-[#fee500] dark:bg-yellow-500' 
-                    : 'bg-gray-300 dark:bg-gray-700'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag, tagIndex) => (
+                      <span key={tagIndex} className="text-sm text-gray-600 dark:text-gray-400">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Slider>
       </div>
     </section>
   );

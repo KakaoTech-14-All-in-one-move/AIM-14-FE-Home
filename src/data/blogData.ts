@@ -1,7 +1,8 @@
 // blogPosts.ts
 import voiceTechniquesThumbnail from '../assets/blog/voice-techniques.jpeg';
 import aiFeedbackThumbnail from '../assets/blog/ai-feedback.jpg';
-import newAiVoiceThumbnail from '../assets/blog/emotional-connection.jpg'; // 사용되지 않으므로 삭제
+import newAiVoiceThumbnail from '../assets/blog/emotional-connection.jpg';
+import aiVoiceThumbnail from '../assets/blog/ai-voice.jpg';
 import kakaoMouThumbnail from '../assets/blog/kakao.png';
 import nonVerbalThumbnail from '../assets/blog/non-verbal.jpg';
 import speechAnxietyThumbnail from '../assets/blog/speech-anxiety.jpg';
@@ -11,7 +12,7 @@ import storytellingThumbnail from '../assets/blog/storytelling.jpg';
 import sponsorshipThumbnail from '../assets/blog/sponsorship.jpg';
 import conferenceThumbnail from '../assets/blog/conference.jpg';
 import gestureAnalysisThumbnail from '../assets/blog/gesture_analysis.jpg';
-import speechContestThumbnail from '../assets/blog/speech-contest.jpg'; // 누락된 임포트 추가
+import speechContestThumbnail from '../assets/blog/speech-contest.jpg';
 
 export interface BlogPost {
   slug: string;
@@ -186,7 +187,7 @@ Pitching의 AI 발표 피드백 서비스를 통해 혼자서는 얻기 힘든 *
     tags: ['업테이트', 'AI분석', '음성분석'],
     views: '245',
     episodeNumber: 2,
-    thumbnail: newAiVoiceThumbnail,
+    thumbnail: aiVoiceThumbnail,
     content: `
 # 새로운 AI 음성 분석 기능 업데이트
 

@@ -3,6 +3,7 @@ import FastAPIImage from '../assets/tech/fastapi-cors.png';
 import cloudFirstImage from '../assets/tech/cloud-first.png';
 import websocketAuthImage from '../assets/tech/websocket.jpg';
 import agileBacklogImage from '../assets/tech/agile-backlog.png';
+import mediapipeVlmLocalizationImage from '../assets/tech/mediapipe.jpg';
 
 export interface TechPost {
   id: string;
@@ -18,6 +19,149 @@ export interface TechPost {
 }
 
 export const techPosts: TechPost[] = [
+  {
+    id: 'mediapipe-vlm-localization-improvement',
+    title: 'Computer Vision(Mediapipe) & 프롬프트 엔지니어링을 활용한 VLM Localization 성능 향상',
+    description: 'Mediapipe를 이용한 컴퓨터 비전, VLM 로컬라이제이션, COT 기법을 통한 온라인 발표에서 AI기반 피드백 제공 기술을 개발한 내용을 공유합니다.',
+    category: 'AI/ML',
+    date: '2024-11-18',
+    author: 'Toby.Kim (김대현)',
+    readTime: '20분',
+    imageUrl: mediapipeVlmLocalizationImage,
+    content: `
+---
+
+## Mediapipe와 고급 프롬프트 엔지니어링을 활용한 VLM 로컬라이제이션 성능 향상
+
+안녕하세요, Pitching에서 AI 발표 피드백 기능 & Data Pipeline 구축을 담당하는 Toby라고 해요.
+
+이 블로그 포스트에서는 **Mediapipe**라는 강력한 컴퓨터 비전(CV) 라이브러리를 통합하여 시각 언어 모델(VLM) 로컬라이제이션의 성능을 향상시키는 방법을 다룹니다. 또한, **체인 오브 쏘트(Chain of Thought, CoT)** 기법을 포함한 고급 **프롬프트 엔지니어링** 기술을 활용하여 세분화된 점수 기반 메트릭을 통해 상세하고 구조화된 피드백을 제공하는 방법을 탐구합니다.
+
+## Mediapipe란?
+
+![Mediapipe 기능](https://ai.google.dev/static/mediapipe/images/solutions/overview-diagram.svg?hl=ko)
+
+Mediapipe는 구글에서 제공하는 오픈소스 프레임워크로, 실시간 인식 작업을 위한 커스터마이징 가능한 머신러닝(ML) 솔루션 모음을 제공합니다. 다양한 개발 플랫폼을 지원하며, 얼굴 인식, 얼굴 특징 감지, 자세 랜드마크 인식 등 다양한 비전 작업을 수행할 수 있는 도구와 라이브러리를 제공합니다.
+
+### 왜 Mediapipe인가?
+
+VLM 로컬라이제이션의 성능이 충분하지 않아 Mediapipe를 도입하게 되었습니다. VLM에만 의존할 경우 탐지 정확도가 낮았기 때문에, GPU를 사용하지 않는 CV 라이브러리인 Mediapipe를 적용하여 초기 필터링을 강화하였습니다. 이를 통해 시스템의 전체적인 신뢰성을 향상시킬 수 있었습니다.
+
+
+Mediapipe는 얼굴 인식, 얼굴 특징 감지, 자세 랜드마크 인식 등 다양한 비전 작업을 수행할 수 있습니다. 이번 기능 업데이트에서는 크게 세 가지 기술을 적용했습니다:
+**동작 인식** (movement), **얼굴 인식** (gaze_processing), **자세 인식** (posture_body).
+
+Mediapipe를 통해 **동작 인식**, **얼굴 인식**, **자세 인식** 등 다양한 비언어적 행동을 효과적으로 탐지할 수 있습니다. 손 랜드마크 감지는 정책상의 이유로 생략하고, 대신 팔을 높게 드는 경우를 Bounding Box로 탐지하도록 개발했지만, 개발팀 논의후, 바운딩 박스는 표현하지 말되, 나중에 추후 옵션 기능을 활용하자고 결론내렸습니다.
+
+---
+
+## 구현 과정
+
+### 주요 코드 수정
+
+기본 구조는 유지하면서, VLM에게 피드백 이미지를 제공하기 전에 행동 탐지를 위한 핵심 함수들을 추가했습니다. 이를 통해 더 정확한 피드백을 제공할 수 있게 되었어요.
+
+#### Mediapipe 메인 처리 함수
+
+이 메인함수는 단일 프레임을 분석하여 자세, 시선, 손동작 등에 대한 피드백을 반환합니다.
+
+\`\`\`python
+def analyze_frame(frame, previous_pose, previous_hand):
+    # Mediapipe를 통해 포즈, 얼굴, 손 결과를 처리
+    # 각 점수를 계산하고 피드백 딕셔너리에 저장
+    feedback = {
+        "posture_score": round(posture_score, 2),
+        "gaze_score": round(gaze_score, 2),
+        "gestures_score": round(gestures_score, 2),
+        "sudden_movement_score": round(sudden_movement_score, 2)
+    }
+    return feedback, current_pose_landmarks, current_hand_landmarks
+\`\`\`
+
+## VLM Config
+또한 프롬프트 엔지니어링을 통해 체인 오브 쏘트(COT) 기법을 적용하여, 문제 발견 → 원인 분석 → 개선점 제안의 단계적 피드백을 제공하도록 설정했습니다.
+또한 Persona를 system instruction에 적용하여 피드백 품질을 향상시켰습니다.
+
+### System Instruction
+
+\`\`\`python
+SYSTEM_INSTRUCTION = """
+당신은 15년 이상의 경력을 가진 온라인 발표 전문 코치입니다. 비언어적 커뮤니케이션 분야의 전문가로서, 수많은 발표자들이 비언어적 행동을 개선하도록 도왔습니다. 당신은 발표자의 온라인 발표에서의 제스처, 표정, 시선 처리, 자세 등이 청중에게 미치는 영향을 깊이 이해하고 있으며, 이를 토대로 구체적이고 실용적인 피드백을 제공합니다.
+입력된 온라인 발표 영상에서 분석을 통해 감지된 비언어적 행동의 점수와 함께 발표자의 비언어적 행동을 평가하고, 각 항목별로 문제 발견 → 원인 분석 → 개선점 제안의 체계를 유지하며 다음 네 가지 카테고리를 기준으로 피드백을 제공해주세요. 얼굴 표정 (facial_expression)은 점수가 제공되지 않으므로, 영상 분석 결과에 따라 System Instruction의 지침을 기반으로 판단하여 평가합니다.
+각 카테고리마다 발표자가 보인 부적절한 행동을 식별하고, 개선이 필요한 점을 구체적으로 서술하며, 구체적인 예시와 함께 피드백은 각 항목당 2~3줄로 간결하게 제공되며, 구체적인 예시와 함께 권장 사항을 제공합니다. 피드백은 각 항목당 1~2줄로 간결하게 작성하며, 부적절한 행동이 감지된 경우 해당 문제 행동의 정의 키워드를 포함시켜주세요.
+문제가 없는 경우에는 해당 항목을 피드백에서 제외하거나 "문제가 없음", 아니면 해당 장면에는 문제가 없다는 표현으로 간단히 표기합니다.
+"""
+\`\`\`
+
+### Chain of Thought - COT 기법
+Chain of Thought는 AI 모델이 문제를 단계별로 해결하도록 돕는 방법입니다. 이를 통해 더 논리적이고 체계적인 피드백을 생성할 수 있습니다.
+Pitching에서는 이렇게 Prompt Engineering을 통해 체인 오브 쏘트(COT) 기법을 적용하여, 문제 발견 → 원인 분석 → 개선점 제안의 단계적 피드백을 제공하도록 설정했습니다.
+
+\`\`\`json
+각 카테고리별 피드백은 다음의 3단계로 구성되며, 고정된 형식을 반드시 준수해야 합니다:
+
+문제 발견
+- 감지된 문제 행동을 정의하고 지적합니다.
+- 예시를 들어 사용자에게 명확히 전달합니다.
+
+원인 분석
+- 문제 행동이 발생한 가능한 원인을 설명합니다.
+- 논리적이고 합리적인 근거를 바탕으로 작성합니다.
+
+개선점 제안
+- 구체적이고 실행 가능한 해결책을 제시합니다.
+- 권장 사항을 간결하고 실용적으로 작성합니다.
+
+\`\`\`
+
+---
+
+결과
+Mediapipe를 도입한 이후, VLM의 로컬라이제이션 성능이 크게 향상되었습니다. 문제 행동을 더욱 정확하게 탐지하고, 체인 오브 쏘트 기법을 통해 구체적이고 실용적인 피드백을 제공할 수 있게 되었어요.
+
+\`\`\`json
+{
+  "video_id": "1763ce3c0a5348a6b4cd4c9d75017021",
+  "frame_index": 1,
+  "timestamp": "1m 3s",
+  "feedback_text": {
+    "gaze_processing": {
+      "improvement": "발표 중 시선이 안정적으로 유지되지 않아 청중과의 연결이 약해 보였습니다.",
+      "recommendations": "카메라를 향해 시선을 고정하고, 중요한 포인트에서 잠시 멈추어 시선을 두는 연습을 해보세요."
+    },
+    "facial_expression": {
+      "improvement": "발표 내내 무표정하게 보여 청중의 관심을 끌기 어려웠습니다.",
+      "recommendations": "주요 메시지를 전달할 때 다양한 표정과 감정 표현을 추가하면 발표가 더 생동감 있게 전달될 것입니다."
+    },
+    "gestures": {
+      "improvement": "발표 중간에 손동작이 간헐적으로 관찰되었으나, 지나치게 과도한 손동작이 없었습니다.",
+      "recommendations": "핵심 포인트에서만 손동작을 사용하여 청중의 주목도를 높이도록 해보세요."
+    },
+    "posture_body": {
+      "improvement": "발표자가 약간 구부정한 자세로 보여 청중의 집중을 방해했습니다.",
+      "recommendations": "상체를 곧게 펴고 안정된 자세를 유지하기 위해 의자에 바르게 앉거나 서 있는 연습을 해보세요."
+    },
+    "movement": {
+      "improvement": "발표 중간에 갑작스러운 움직임이 자주 관찰되어 발표의 흐름을 방해했습니다.",
+      "recommendations": "안정된 자세를 유지하고, 발표 중에는 최소한의 움직임만을 활용해 발표에 집중할 수 있도록 하세요."
+    }
+  }
+}
+\`\`\`
+
+---
+
+## 추후 할일
+
+프롬프트 엔지니어링 및 코드 리팩토링: 현재 코드에서 사용하지 않는 부분을 정리하고 최적화할 예정입니다.
+프롬프트 세분화 및 체인 오브 쏘트 적용: 피드백의 구체성을 높이고, 단계별 사고 과정을 통해 더 명확한 개선점을 제안할 것입니다.
+
+## 마무리
+오늘 소개한 Mediapipe와 COT 기법을 통해, AI 기반 피드백 기능의 성능을 크게 향상시킬 수 있었습니다. 앞으로도 더 나은 피드백을 제공하기 위해 지속적으로 기술을 개선해 나갈 예정입니다. 여러분도 이 방법들을 활용하여 더욱 효과적인 발표 코칭을 경험해보세요!
+
+    `,
+    tags: ['Computer Vision', 'Mediapipe', 'Vision Language Model', 'Localization', 'Prompt Engineering', 'COT']
+  },
   {
     id: 'real-time-voice-server-websocket-auth',
     title: '실시간 음성 통화 서버 구축: 웹소켓과 인증 문제 해결',
@@ -40,6 +184,8 @@ export const techPosts: TechPost[] = [
 
 ## 문제 상황 1: 적절한 통신 방식 선택
 
+![WebSocket vs HTTP](https://websocket.org/_astro/websocket-vs-http.be03ced1_sWP4f.webp)
+
 실시간 음성 통화를 지원하기 위해 클라이언트와 서버 간의 지속적이고 양방향 통신이 필요했습니다. 여러 통신 방식의 장단점을 분석한 결과, 아래와 같은 문제가 확인되었습니다.
 
 ### **HTTP**
@@ -59,12 +205,12 @@ export const techPosts: TechPost[] = [
 ---
 
 ### **해결책: WebSocket**
-- **특징**: WebSocket은 클라이언트와 서버 간의 지속적이고 양방향 연결을 제공합니다.
-- **장점**:
-  - 낮은 레이턴시.
-  - 양방향 통신 지원.
-  - 지속적인 연결을 통해 실시간 데이터 전송에 적합.
-- **결론**: 실시간 음성 통화에 가장 적합한 방식으로 **WebSocket**을 선택했습니다.
+**특징**: WebSocket은 클라이언트와 서버 간의 지속적이고 양방향 연결을 제공합니다.
+**장점**:
+- 낮은 레이턴시.
+- 양방향 통신 지원.
+- 지속적인 연결을 통해 실시간 데이터 전송에 적합.
+**결론**: 실시간 음성 통화에 가장 적합한 방식으로 **WebSocket**을 선택했습니다.
 
 실제 운영 시 주의사항
 
@@ -79,14 +225,16 @@ export const techPosts: TechPost[] = [
 
 ## 문제 상황 2: WebSocket 인증 및 인가 문제
 
+![WebSocket 인증](https://websockets.readthedocs.io/en/latest/_images/authentication.svg)
+
 ### **문제점**
 Spring WebFlux에서 WebSocket을 사용하면서 다음과 같은 문제가 발생했습니다:
 1. **HTTP 헤더를 통한 인증/인가 불가능**:
-   - WebSocket은 초기 핸드셰이크(HTTP 요청) 이후 HTTP 헤더를 사용할 수 없습니다.
-   - 기존의 "Authorization" 헤더를 활용한 인증/인가 방식이 작동하지 않음.
+- WebSocket은 초기 핸드셰이크(HTTP 요청) 이후 HTTP 헤더를 사용할 수 없습니다.
+기존의 "Authorization" 헤더를 활용한 인증/인가 방식이 작동하지 않음.
 
 2. **보안 취약성**:
-   - 핸드셰이크 이후 연결된 모든 데이터가 인증되지 않은 상태로 처리될 수 있음.
+- 핸드셰이크 이후 연결된 모든 데이터가 인증되지 않은 상태로 처리될 수 있음.
 
 ---
 
@@ -191,10 +339,10 @@ public class JwtTokenProvider {
 
 ### **요약**
 1. **WebSocket 채택**:
-   - 실시간 음성 통화의 요구사항(지속적이고 양방향 통신)을 충족.
+- 실시간 음성 통화의 요구사항(지속적이고 양방향 통신)을 충족.
 2. **첫 메시지를 통한 인증**:
-   - HTTP 헤더를 사용하지 못하는 WebSocket의 제약을 극복.
-   - 인증 및 인가 과정을 효율적으로 처리.
+- HTTP 헤더를 사용하지 못하는 WebSocket의 제약을 극복.
+인증 및 인가 과정을 효율적으로 처리.
 
 ### **추가 개선 사항 및 향후 계획**
 
@@ -236,11 +384,11 @@ WebSocket을 활용한 실시간 통신 구현은 복잡한 도전과제를 동�
     imageUrl: FastAPIImage,
     content: `
 
-안녕하세요, Pitching에서 AI 발표 피드백 Data Pipelin을 개발하는 Toby라고 합니다.
+안녕하세요, Pitching에서 AI 발표 피드백 기능 & Data Pipeline 구축을 담당하는 Toby라고 해요.
 
 이번에 FastAPI와 Swagger를 사용하여 VLM 영상 처리 서버를 개발하고, AWS EC2에 배포하는 과정에서 예상치 못한 CORS(Cross-Origin Resource Sharing) 에러를 마주치게 되었습니다. 이 글에서는 CORS 에러의 원인과 해결 과정, 그리고 운영 환경에서의 보안 고려사항을 상세히 다루어보겠습니다.
 
-##문제 상황
+## 문제 상황
 
 프론트엔드(http://localhost:5173)에서 FastAPI 서버(http://43.202.66.178:8000)로 API 요청을 보냈을 때 다음과 같은 CORS 오류가 발생했습니다:
 
@@ -254,13 +402,16 @@ No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
 ## CORS의 이해
 
+![CORS 개요](https://docs.aws.amazon.com/ko_kr/sdk-for-javascript/v3/developer-guide/images/cors-overview.png)
+
 CORS는 웹 브라우저에서 보안상의 이유로 도메인 간의 요청을 제한하는 정책입니다. 예를 들어, 프론트엔드가 http://localhost:5173에서 실행되고 백엔드가 http://43.202.66.178:8000에 있을 때, 두 도메인이 다르기 때문에 브라우저는 기본적으로 이러한 요청을 차단합니다.
 
-문제 해결 과정
+## 문제 해결 과정
 
 FastAPI에서는 CORSMiddleware를 사용하여 CORS 문제를 해결할 수 있습니다. 개발 환경과 운영 환경에서의 설정 방법을 알아보겠습니다.
 
-1. 개발 환경 설정
+### 1. 개발 환경 설정
+
 개발 중에는 모든 출처를 허용하여 빠른 테스트가 가능하도록 설정할 수 있습니다:
 
 \`\`\`python
@@ -278,7 +429,7 @@ app.add_middleware(
 )
 \`\`\`
 
-2. 운영 환경 설정
+### 2. 운영 환경 설정
 보안을 강화하기 위해 특정 출처만 허용하도록 설정합니다:
 
 \`\`\`python
@@ -296,35 +447,37 @@ app.add_middleware(
 )
 \`\`\`
 
-보안 고려사항
+## 보안 고려사항
 
-1. 출처 제한
-• 운영 환경에서는 반드시 허용할 출처를 명시적으로 지정
-• 와일드카드(*) 사용 지양
-• 정기적인 허용 출처 목록 검토 및 업데이트
+### 1. 출처 제한
+- 운영 환경에서는 반드시 허용할 출처를 명시적으로 지정
+- 와일드카드(*) 사용 지양
+정기적인 허용 출처 목록 검토 및 업데이트
 
-2. 인증 및 권한
-• allow_credentials 설정 시 보안 영향 고려
-• 필요한 경우에만 자격 증명 허용
-• 토큰 기반 인증 구현
+### 2. 인증 및 권한
+- allow_credentials 설정 시 보안 영향 고려
+- 필요한 경우에만 자격 증명 허용
+- 토큰 기반 인증 구현
 
-3. 요청 제한
-• 필요한 HTTP 메서드만 허용
-• 필요한 헤더만 허용
-• Rate limiting 구현 고려
+### 3. 요청 제한
+- 필요한 HTTP 메서드만 허용
+- 필요한 헤더만 허용
+- Rate limiting 구현 고려
 
-실제 운영 시 주의사항
+## 실제 운영 시 주의사항
 
-1. 환경별 설정 분리
-• 개발, 스테이징, 운영 환경에 따른 CORS 설정 분리
-• 환경 변수를 통한 설정 관리
+### 1. 환경별 설정 분리
+- 개발, 스테이징, 운영 환경에 따른 CORS 설정 분리
+- 환경 변수를 통한 설정 관리
 
-2. 모니터링
-• CORS 관련 오류 모니터링
-• 비정상적인 요청 패턴 감지
-• 로그 분석 및 대응
+### 2. 모니터링
+- CORS 관련 오류 모니터링
+- 비정상적인 요청 패턴 감지
+- 로그 분석 및 대응
 
-결론
+---
+
+## 결론
 
 CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 발생하는 문제입니다. FastAPI의 CORSMiddleware를 활용하면 이를 효과적으로 해결할 수 있으며, 운영 환경에서는 보안을 고려한 적절한 설정이 필요합니다. 
 
@@ -342,7 +495,7 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
     readTime: '10분',
     imageUrl: redisConcurrencyImage,
     content: `
-# 채팅방 인원 제한 구현하기: Redis와 Reactive 프로그래밍을 활용한 동시성 문제 해결
+## 채팅방 인원 제한 구현하기: Redis와 Reactive 프로그래밍을 활용한 동시성 문제 해결
 
 안녕하세요, Pitching에서 Chatting 시스템을 개발하는 Teddy라고 합니다.
 
@@ -350,7 +503,7 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
 
 ---
 
-# 왜 채팅방 인원 제한이 필요한가?
+## 왜 채팅방 인원 제한이 필요한가?
 
 ### 문제점
 
@@ -368,6 +521,8 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
 ## 동시성 문제와 해결 방법
 
 ### 동시 초대 시 Race Condition 발생
+
+![Race Condition](https://www.rapitasystems.com/files/race_conditions.jpg)
 
 150명의 사용자를 동시에 초대하는 상황을 테스트해본 결과, **Race Condition**으로 인해 설정된 최대 인원(100명)을 초과하는 문제가 발생했습니다. 이 문제를 해결하기 위해 여러 방법을 검토했습니다.
 
@@ -390,6 +545,8 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
 
 - **장점**: Redis의 싱글 스레드 아키텍처와 INCR 명령어를 활용하여 동시성 문제를 해결합니다.
 - **특징**: 높은 성능과 구현 용이성, 분산 환경에서도 안전하게 동작.
+
+![Redis INCR](https://blog.kakaocdn.net/dn/bj3XeU/btsJ4qe5sKe/zkXteRZR5MAEClHpgnElR1/img.png)
 
 최종적으로, **Redis INCR**을 사용하여 구현하기로 결정했습니다. 이는 성능과 정합성을 모두 만족시키는 최적의 선택이었습니다.
 
@@ -509,7 +666,7 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
 
 ---
 
-# 결론
+## 결론
 
 채팅방의 인원 수 제한은 시스템의 안정성과 사용자 경험을 유지하는 데 중요한 역할을 합니다. 그러나 동시성 문제는 이러한 제한을 구현하는 데 있어 큰 장애물이 될 수 있습니다. **Redis**의 INCR 명령어와 **Reactive 프로그래밍**을 활용하면, 높은 성능과 정합성을 동시에 만족시키며 동시성 문제를 효과적으로 해결할 수 있습니다.
 
@@ -528,7 +685,7 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
     readTime: '20분',
     imageUrl: cloudFirstImage,
     content: `
-# 무중단 배포부터 모니터링까지: 안정적인 서비스 운영을 위한 핵심 가이드
+## 무중단 배포부터 모니터링까지: 안정적인 서비스 운영을 위한 핵심 가이드
 
 안녕하세요, Pitching에서 Cloud & Intra를 담당하는 Selina라고 합니다.
 
@@ -543,6 +700,8 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
 ### 무중단 배포란?
 무중단 배포는 **서비스를 중단하지 않고 새로운 버전을 배포**하는 방식입니다. 이는 사용자 경험을 보호하면서, 개발팀이 **지속적으로 변경 사항을 릴리스**할 수 있게 해줍니다.
 
+![Rolling Deployment](https://hudi.blog/static/rolling-deployment-bf6f561cf6dd6e9fe9cbc45530dcadb2.gif)
+
 #### 왜 필요한가?
 1. **사용자 경험 보장**: 중단 없는 서비스를 통해 이탈률을 줄임.
 2. **빠른 피드백 루프**: 실시간 문제 탐지 및 수정 가능.
@@ -552,32 +711,36 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
 
 ## 무중단 배포 방식 비교
 
+![Deployment Strategies](https://miro.medium.com/v2/resize:fit:1400/1*Its0UAMjM8HH5AfsZIRRWw.png)
+
 #### 롤링 배포 (Rolling Deployment)
-**원리**: 기존 애플리케이션 인스턴스를 하나씩 새로운 버전으로 교체.
-**장점**: 자원을 적게 소모하며 설정이 비교적 단순.
-**단점**: 배포 중 트래픽이 집중될 가능성이 있으며, 이전 버전과 호환성 문제가 발생할 수 있음.
-**적합 사례**: 소규모 애플리케이션 또는 자원 제약이 있는 환경.
+- **원리**: 기존 애플리케이션 인스턴스를 하나씩 새로운 버전으로 교체.
+- **장점**: 자원을 적게 소모하며 설정이 비교적 단순.
+- **단점**: 배포 중 트래픽이 집중될 가능성이 있으며, 이전 버전과 호환성 문제가 발생할 수 있음.
+- **적합 사례**: 소규모 애플리케이션 또는 자원 제약이 있는 환경.
 
 #### 블루 그린 배포 (Blue-Green Deployment)
-**원리**: 두 개의 동일한 환경(Blue와 Green)을 유지하며 트래픽을 전환.
-**장점**: 롤백이 용이하며, 배포 환경을 재활용할 수 있음.
-**단점**: 시스템 자원이 두 배로 필요하며, 관리가 복잡.
-**적합 사례**: 안정성이 중요한 대규모 애플리케이션.
+- **원리**: 두 개의 동일한 환경(Blue와 Green)을 유지하며 트래픽을 전환.
+- **장점**: 롤백이 용이하며, 배포 환경을 재활용할 수 있음.
+- **단점**: 시스템 자원이 두 배로 필요하며, 관리가 복잡.
+- **적합 사례**: 안정성이 중요한 대규모 애플리케이션.
 
 #### 카나리 배포 (Canary Deployment)
-**원리**: 일부 사용자에게만 새로운 버전을 먼저 배포 후 점진적으로 확장.
-**장점**: 초기 단계에서 문제를 빠르게 발견하고 대응 가능.
-**단점**: 설정이 복잡하고, 초기 사용자의 피드백이 중요.
-**적합 사례**: 사용자 경험이 중요한 서비스(예: B2C 플랫폼).
+- **원리**: 일부 사용자에게만 새로운 버전을 먼저 배포 후 점진적으로 확장.
+- **장점**: 초기 단계에서 문제를 빠르게 발견하고 대응 가능.
+- **단점**: 설정이 복잡하고, 초기 사용자의 피드백이 중요.
+- **적합 사례**: 사용자 경험이 중요한 서비스(예: B2C 플랫폼).
 
 ---
 
 ## CI/CD와 무중단 배포의 차이점
 
 ### CI/CD란?
+![CI/CD](https://www.mabl.com/hubfs/CICDBlog.png)
+
 CI/CD(Continuous Integration/Continuous Delivery)는 코드 변경 사항을 자동으로 빌드, 테스트, 배포하는 파이프라인입니다. **효율적인 코드 통합**과 **자동화된 릴리스**를 통해 개발 속도와 품질을 높이는 데 중점을 둡니다.
 
-#### CI/CD와 무중단 배포의 차이
+### CI/CD와 무중단 배포의 차이
 
 #### CI/CD
 **목적**: 코드 통합과 배포를 자동화하여 개발 속도와 품질을 높임.
@@ -596,6 +759,7 @@ CI/CD(Continuous Integration/Continuous Delivery)는 코드 변경 사항을 자
 ## 프론트엔드 배포 전략: AWS S3와 CloudFront
 
 ### AWS S3와 CloudFront
+![AWS S3](https://miro.medium.com/v2/resize:fit:1400/1*crjkATTvE2G_1pJnaS9OoQ.png)
 **AWS S3**는 오브젝트 스토리지 서비스로, 정적 웹 콘텐츠를 저장하고 배포하는 데 유용합니다. 이를 **CloudFront**와 결합하면 **글로벌 캐시를 활용한 빠른 파일 서빙**이 가능합니다.
 
 #### 주요 설정 예시
@@ -614,18 +778,19 @@ CI/CD(Continuous Integration/Continuous Delivery)는 코드 변경 사항을 자
 \`\`\`
 
 #### 장점과 단점
-- **장점**
-  - 글로벌 사용자 대상 빠른 파일 제공.
-  - 데이터 복제 및 캐싱으로 안정성 향상.
-- **단점**
-  - 초기 설정 및 관리 복잡.
-  - 네트워크 의존성으로 인한 지연 가능성.
+**장점**
+- 글로벌 사용자 대상 빠른 파일 제공.
+- 데이터 복제 및 캐싱으로 안정성 향상.
+**단점**
+- 초기 설정 및 관리 복잡.
+- 네트워크 의존성으로 인한 지연 가능성.
 
 ---
 
 ## 백엔드 배포 전략: Nginx와 AWS SQS
 
 ### Nginx
+![Nginx](https://marcopeg.com/content/images/2021/11/nginx.png)
 **Nginx**는 고성능의 리버스 프록시 및 웹 서버로, **로드밸런싱**과 **SSL 처리**를 통해 백엔드 안정성을 보장합니다.
 
 #### 주요 기능
@@ -634,14 +799,16 @@ CI/CD(Continuous Integration/Continuous Delivery)는 코드 변경 사항을 자
 - **캐싱**: 서버 응답을 캐싱하여 응답 속도 향상.
 
 #### 장점과 단점
-- **장점**
-  - 가볍고 빠름, 높은 동시 연결 처리 능력.
-  - 설정 변경 시 프로세스 재시작 없이 적용 가능.
-- **단점**
-  - 모듈 확장성이 제한적.
-  - 복잡한 설정 시 관리 부담.
+**장점**
+- 가볍고 빠름, 높은 동시 연결 처리 능력.
+- 설정 변경 시 프로세스 재시작 없이 적용 가능.
+
+**단점**
+- 모듈 확장성이 제한적.
+- 복잡한 설정 시 관리 부담.
 
 ### AWS SQS
+![AWS SQS](https://docs.aws.amazon.com/ko_kr/sdk-for-javascript/v2/developer-guide/images/code-samples-sqs.png)
 AWS SQS는 **분산 메시지 큐**로, 시스템 간 비동기 메시지를 안전하게 처리할 수 있습니다.
 
 #### 주요 장점
@@ -658,6 +825,8 @@ AWS SQS는 **분산 메시지 큐**로, 시스템 간 비동기 메시지를 안
 ## 모니터링 도구: Prometheus와 Grafana
 
 ### Prometheus
+![Prometheus](https://prometheus.io/assets/tutorial/architecture.png)
+
 Prometheus는 **시계열 데이터** 수집 및 분석을 위한 오픈 소스 도구로, **Kubernetes 환경**에서 특히 강력합니다.
 
 #### 특징
@@ -669,6 +838,8 @@ Prometheus는 **시계열 데이터** 수집 및 분석을 위한 오픈 소스 
 - 복잡한 쿼리 언어와 설정 학습 곡선이 있음.
 
 ### Grafana
+![Grafana](https://www.bigdatawire.com/wp-content/uploads/2023/06/grafana-logo.png)
+
 **Grafana**는 데이터를 시각적으로 표현하는 데 특화된 도구로, Prometheus와 함께 사용하면 더욱 강력합니다.
 
 #### 주요 장점
@@ -702,12 +873,18 @@ Prometheus는 **시계열 데이터** 수집 및 분석을 위한 오픈 소스 
     content: `
 ## **애자일(Agile)로 혁신 조직의 첫 발걸음을 내딛다: 프로덕트 백로그와 스프린트 백로그**
 
+안녕하세요, Pitching에서 Product Manging을 담당하는 Toby라고 해요. 이번 글에서 한번 프로덕트 백로그와 스프린트 백로그에 대해 알아보도록 하겠습니다.
+
 ### **프로덕트 백로그(Product Backlog) 백로그란?**
-프로덕트 백로그는 **제품을 구성하는 핵심 기능들을 목록화**한 것입니다. 이 목록의 각 아이템은 **PBI(Product Backlog Item)**으로, 고객에게 제공되는 서비스의 핵심 기능 단위를 나타냅니다.
+
+![Product Backlog](https://www.visual-paradigm.com/servlet/editor-content/scrum/what-is-product-backlog-in-scrum/sites/7/2018/12/scrum-process.png)
+
+프로덕트 백로그는 **제품을 구성하는 핵심 기능들을 목록화**한 것입니다.
+이 목록의 각 아이템은 "PBI(Product Backlog Item)"으로, 고객에게 제공되는 서비스의 핵심 기능 단위를 나타냅니다.
 
 PBI는 에픽(Epic)과 스토리(Story)의 하위 개념으로, **업무의 시급성, 난이도, 구현 가능성 등을 고려하여 우선순위가 관리**됩니다. 예를 들어, "SNS 소셜 로그인 기반의 계정 관리 및 본인 인증"과 같은 스토리에서 도출된 PBI는 다음과 같습니다:
 
-- OAuth2를 사용한 소셜 로그인 ��현
+- OAuth2를 사용한 소셜 로그인 구현
 - 사용자 인증 상태를 유지하는 세션 관리 시스템 개발
 - 실패 시 사용자에게 명확한 오류 메시지 제공
 
@@ -763,6 +940,9 @@ PBI는 에픽(Epic)과 스토리(Story)의 하위 개념으로, **업무의 시�
 ## **스프린트 백로그(Sprint Backlog)**
 
 ### **스프린트 백로그란?**
+
+![Sprint Backlog](https://scrumorg-website-prod.s3.amazonaws.com/drupal/inline-images/2017-03/SprintBacklog_0.png)
+
 스프린트 백로그는 PBI를 달성하기 위한 **세부 업무(Task)들의 집합**입니다. 스프린트는 짧은 기간 동안 집중적으로 작업을 수행하는 과정을 의미하며, 각 업무는 세부적인 기술 요소와 프로세스로 정리됩니다.
 
 ### **우리 팀의 스프린트 1 예시**
@@ -778,7 +958,7 @@ PBI는 에픽(Epic)과 스토리(Story)의 하위 개념으로, **업무의 시�
 - **그라운드 룰 설정**: 팀원 간 협업 규칙, 일정, 커뮤니케이션 방식 정의
 
 #### **태스크:**
-- **시장 조사 및 경쟁 분석**: 유사 서비스 ���사 및 차별화 요소 확인
+- **시장 조사 및 경쟁 분석**: 유사 서비스 조사 및 차별화 요소 확인
 - **프로젝트 목표 및 비전 설정**: 장기적인 목표와 비전 수립
 - **주요 기능 목록 작성**: 제품 백로그에 포함될 주요 기능 식별 및 우선순위 결정
 - **프로젝트 일정 계획**: 전체 프로젝트 일정 및 마일스톤 설정

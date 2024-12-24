@@ -1,3 +1,18 @@
+// blogPosts.ts
+import voiceTechniquesThumbnail from '../assets/blog/voice-techniques.jpeg';
+import aiFeedbackThumbnail from '../assets/blog/ai-feedback.jpg';
+import newAiVoiceThumbnail from '../assets/blog/emotional-connection.jpg'; // 사용되지 않으므로 삭제
+import kakaoMouThumbnail from '../assets/blog/kakao.png';
+import nonVerbalThumbnail from '../assets/blog/non-verbal.jpg';
+import speechAnxietyThumbnail from '../assets/blog/speech-anxiety.jpg';
+import interactiveAudienceThumbnail from '../assets/blog/interactive-audience.jpg';
+import enhanceToneThumbnail from '../assets/blog/tone-modulation.jpg';
+import storytellingThumbnail from '../assets/blog/storytelling.jpg';
+import sponsorshipThumbnail from '../assets/blog/sponsorship.jpg';
+import conferenceThumbnail from '../assets/blog/conference.jpg';
+import gestureAnalysisThumbnail from '../assets/blog/gesture_analysis.jpg';
+import speechContestThumbnail from '../assets/blog/speech-contest.jpg'; // 누락된 임포트 추가
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -23,7 +38,7 @@ const posts: BlogPost[] = [
     tags: ['음성테크닉', '발표스킬', '실전팁'],
     views: '156',
     episodeNumber: 7,
-    thumbnail: '../../assets/blog/voice-techniques.jpeg',
+    thumbnail: voiceTechniquesThumbnail,
     content: `
 # 효과적인 발표를 위한 7가지 음성 테크닉
 
@@ -99,7 +114,7 @@ const posts: BlogPost[] = [
     tags: ['성공사례', 'AI피드백', '발표준비'],
     views: '89',
     episodeNumber: 3,
-    thumbnail: '../../assets/blog/ai-feedback.jpg',
+    thumbnail: aiFeedbackThumbnail,
     content: `
 # AI 피드백으로 취업 발표 준비 성공 사례
 위 내용은 1년차 백엔드 개발자 이정진님의 AI 발표 피드백 서비스 활용 후기 입니다.
@@ -171,7 +186,7 @@ Pitching의 AI 발표 피드백 서비스를 통해 혼자서는 얻기 힘든 *
     tags: ['업테이트', 'AI분석', '음성분석'],
     views: '245',
     episodeNumber: 2,
-    thumbnail: '../../assets/blog/ai-voice.jpg',
+    thumbnail: newAiVoiceThumbnail,
     content: `
 # 새로운 AI 음성 분석 기능 업데이트
 
@@ -254,7 +269,7 @@ Pitching의 새롭게 강화된 AI 음성 분석 기능은 발표 실력을 높�
     tags: ['Body Language', '제스처', '아이컨택'],
     views: '203',
     episodeNumber: 6,
-    thumbnail: '../../assets/blog/non-verbal.jpg',
+    thumbnail: nonVerbalThumbnail,
     content: `
 # 비언어적 커뮤니케이션의 중요성
 
@@ -325,7 +340,7 @@ Pitching의 새롭게 강화된 AI 음성 분석 기능은 발표 실력을 높�
     tags: ['발표불안', '긴장극복', '자신감'],
     views: '192',
     episodeNumber: 5,
-    thumbnail: '../../assets/blog/speech-anxiety.jpg',
+    thumbnail: speechAnxietyThumbnail,
     content: `
 # 발표 불안 극복을 위한 5가지 팁
 
@@ -402,9 +417,9 @@ Pitching의 새롭게 강화된 AI 음성 분석 기능은 발표 실력을 높�
   tags: ['스폰서', '삼성라이온즈', '마케팅'],
   views: '215',
   episodeNumber: 2,
-  thumbnail: '../../assets/blog/sponsorship.jpg',
+  thumbnail: sponsorshipThumbnail,
   content: `
-# 커뮤니케이션 플랫폼 Pitching, 삼성라이온즈와 스폰서십 체결…스포츠 마케팅의 새 장 열다
+# 커뮤니케이션 플랫폼 Pitching, 삼성라이온즈와 스폰서십 체결… 스포츠 마케팅의 새 장 열다
 
 (카테부뉴스 구연우 기자) 커뮤니케이션 플랫폼 기업 **Pitching**이 프로야구팀 **삼성라이온즈**와 3년간의 스폰서십 계약을 체결하며, 스포츠 마케팅 분야로 본격적인 확장을 선언했다.
 
@@ -479,7 +494,7 @@ Pitching과 삼성라이온즈의 스폰서십은 스포츠와 기술이 협력�
   tags: ['제스처분석', 'AI기능', '업데이트'],
   views: '198',
   episodeNumber: 1,
-  thumbnail: '../../assets/blog/gesture_analysis.jpg',
+  thumbnail: gestureAnalysisThumbnail,
   content: `
 # 새로운 AI 제스처 분석 기능 업데이트
 
@@ -576,7 +591,7 @@ Pitching의 새롭게 추가된 AI 제스처 분석 기능은 발표의 비언�
   tags: ['청중상호작용', '몰입', '발표팁'],
   views: '215',
   episodeNumber: 4,
-  thumbnail: '../../assets/blog/interactive-audience.jpg',
+  thumbnail: interactiveAudienceThumbnail,
   content: `
 # 청중과 상호작용을 높이는 발표 방법
 
@@ -700,7 +715,7 @@ Pitching의 새롭게 추가된 AI 제스처 분석 기능은 발표의 비언�
   tags: ['감정적연결', '청중몰입', '발표스킬'],
   views: '205',
   episodeNumber: 3,
-  thumbnail: '../../assets/blog/emotional-connection.jpg',
+  thumbnail: newAiVoiceThumbnail,
   content: `
 # 청중과 감정적으로 연결되는 발표법
 
@@ -802,7 +817,7 @@ Pitching의 새롭게 추가된 AI 제스처 분석 기능은 발표의 비언�
   tags: ['스피치대회', '우승후기', '발표준비'],
   views: '167',
   episodeNumber: 2,
-  thumbnail: '../../assets/blog/speech-contest.jpg',
+  thumbnail: speechContestThumbnail,
   content: `
 # 대학생 스피치 대회 우승 후기
 
@@ -864,7 +879,7 @@ Pitching의 새롭게 추가된 AI 제스처 분석 기능은 발표의 비언�
   tags: ['업무협약', 'kakao', 'Goorm'],
   views: '215',
   episodeNumber: 1,
-  thumbnail: '../../assets/blog/blog/kakao.png',
+  thumbnail: kakaoMouThumbnail,
   content: `
 # Pitching, kakao·구름과 업무협약 (MOU) 체결  
 ### AI 기반 발표 피드백 서비스와 디지털 교육 혁신의 새로운 도약  
@@ -945,7 +960,7 @@ Pitching은 카카오와 구름과의 협력을 통해 **AI 기반 발표 훈련
   tags: ['스토리텔링', '발표스킬', '몰입'],
   views: '198',
   episodeNumber: 2,
-  thumbnail: '../../assets/blog/storytelling.jpg',
+  thumbnail: storytellingThumbnail,
   content: `
 # 스토리텔링으로 발표를 매력적으로 만들기
 
@@ -1069,7 +1084,7 @@ Pitching은 카카오와 구름과의 협력을 통해 **AI 기반 발표 훈련
   tags: ['톤조절', '발표스킬', '음성테크닉'],
   views: '176',
   episodeNumber: 1,
-  thumbnail: '../../assets/blog/tone-modulation.jpg',
+  thumbnail: enhanceToneThumbnail,
   content: `
 # 목소리 톤 조절로 발표의 생동감 더하기
 
@@ -1179,7 +1194,7 @@ Pitching은 카카오와 구름과의 협력을 통해 **AI 기반 발표 훈련
   tags: ['AI피드백', '발표연습', '자신감향상'],
   views: '112',
   episodeNumber: 1,
-  thumbnail: '../../assets/blog/conference.jpg',
+  thumbnail: conferenceThumbnail,
   content: `
 # AI 피드백으로 발표 실력 향상 후기
 

@@ -38,7 +38,7 @@ const Tech: React.FC = () => {
 
             {/* 카테고리 필터 */}
             <div className="flex justify-center space-x-4 mb-12">
-              {['All', 'Frontend', 'Backend', 'AI/ML', 'Infrastructure'].map((category) => (
+              {['All', 'Frontend', 'Backend', 'AI/ML', 'Cloud & Infra', 'Product Management'].map((category) => (
                 <button
                   key={category}
                   className="px-4 py-2 rounded-full bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-[#fee500] hover:text-gray-900 transition-colors"

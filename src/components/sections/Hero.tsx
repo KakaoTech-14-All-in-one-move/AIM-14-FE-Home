@@ -49,13 +49,17 @@ const Hero = () => {
             </div>
 
             {/* 메인 텍스트 */}
-            <div className="absolute inset-0 flex flex-col justify-center z-10 px-8">
-              <div className="space-y-4">
-                <h1 className="text-5xl font-bold text-white leading-tight">
-                  누구나 편하게 소통할 수 있게,
+            <div className="absolute inset-0 flex flex-col justify-center z-10 px-8 sm:px-6 md:px-8">
+              <div className="space-y-4 sm:space-y-2 md:space-y-4">
+                <h1 className="text-[clamp(2rem,5.7vw,3.325rem)] sm:text-[clamp(1.4rem,5vw,2rem)] md:text-[clamp(2.5rem,5vw,3.325rem)] font-bold text-white leading-[1.2]">
+                  누구나 편하게<br />
+                  소통할 수 있게,
                 </h1>
-                <h2 className="text-5xl font-bold leading-tight">
-                  <span className="text-[#fee500]">자신있게, Pitching.</span>
+                <h2 className="text-[clamp(2rem,5.7vw,3.325rem)] sm:text-[clamp(1.4rem,5vw,2rem)] md:text-[clamp(2.5rem,5vw,3.325rem)] font-bold leading-[1.2]">
+                  <span className="text-[#fee500]">
+                    자신있게,<br />
+                    Pitching.
+                  </span>
                 </h2>
               </div>
             </div>

@@ -112,7 +112,7 @@ const VoiceCall = () => {
                       },
                       {
                         title: 'WebSocket',
-                        description: '실시간 양방향 ��신을 통해 시그널링 서버와의 즉각적인 연결 및 음성 스트림 상태 업데이트를 처리합니다.'
+                        description: '실시간 양방향 통신을 통해 시그널링 서버와의 즉각적인 연결 및 음성 스트림 상태 업데이트를 처리합니다.'
                       },
                       {
                         title: 'Redis',
@@ -148,7 +148,7 @@ const VoiceCall = () => {
                         description: '채널 생성, 채널명 변경, 채널 삭제 등 음성 통화를 위한 다양한 채널 관리 기능을 제공합니다.'
                       },
                       {
-                        title: '음성 ���화',
+                        title: '음성 통화',
                         description: '스피커 음소거, 마이크 음소거, 연결 종료 등 음성 통화에 필요한 핵심 기능을 제공합니다.'
                       }
                     ].map((feature, index) => (
@@ -173,7 +173,7 @@ const VoiceCall = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <FadeIn>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
-                지금 바로 시작하세요!
+                Pitching의 음성통화 기능을 지금 바로 경험해보세요!
               </h2>
               <Button
                 variant="primary"

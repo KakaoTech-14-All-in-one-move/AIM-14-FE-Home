@@ -290,7 +290,7 @@ const ServiceIntro = () => {
           <div className="px-4 sm:px-6 lg:px-8 text-center">
             <FadeIn>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
-                지금 바로 시작하세요!
+              Pitching으로 세상과 연결되고 소통해보세요. 바로 경험해보면서 느껴보세요!
               </h2>
               <Button
                 variant="primary"

@@ -44,6 +44,10 @@ const faqs: FAQItem[] = [
     answer: "AI 기술을 활용하여 최대한 높은 정확도의 피드백을 제공하기 위해 노력합니다, 지속적인 모델 업데이트를 통해 정확도를 계속 향상시키고 있습니다."
   },
   {
+    question: "지원하는 브라우저는 어떠한 것이 있나요?",
+    answer: "현재 Chrome 브라우저만 지원하고 있습니다. 다른 브라우저도 추후 지원할 예정입니다."
+  },
+  {
     question: "인터넷 연결이 불안정할 때도 사용할 수 있나요?",
     answer: "인터넷을 사용하지 않으면 사용할수 없습니다. 인터넷이 안정적인 환경에서 접속해 사용해주세요."
   }
@@ -74,7 +78,7 @@ const FAQ: React.FC = () => {
                 transition={{ duration: 0.5 }}
                 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl"
               >
-                자주 묻는 질문
+                자주 묻는 질문 (FAQ)
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -82,7 +86,7 @@ const FAQ: React.FC = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mt-4 text-xl text-gray-600 dark:text-gray-300"
               >
-                궁금하신 점을 확인해보세요
+                Pitching에 데해 궁금하신 점을 확인해보세요
               </motion.p>
             </div>
 

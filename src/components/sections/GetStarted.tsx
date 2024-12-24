@@ -15,7 +15,7 @@ const GetStarted: React.FC = () => {
               Let's make Confidence with Speaking!
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-              저희의 AI 기반 발표 피드백 서비스를 경험하고 싶으시면 가입해서 한번 체험해보세요!
+              Pitching으로 세상과 연결되고 소통하면서 발표해보세요. 지금 바로 경험해보세요!
             </p>
             <button
               onClick={handleLogin}

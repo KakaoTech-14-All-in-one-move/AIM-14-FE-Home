@@ -19,7 +19,7 @@ const Hero = () => {
       <div className="pt-24 pb-12">
         <div className="max-w-[1280px] mx-auto px-8">
           <div className={`relative rounded-[2rem] overflow-hidden ${SECTION_BG}`}
-            style={{ height: 'calc((100vh - 10rem) * 0.67)' }}>
+            style={{ height: 'calc((100vh - 30rem) * 0.67)' }}>
             
             {/* 배경 비디오 */}
             <video 
@@ -51,7 +51,7 @@ const Hero = () => {
             {/* 메인 텍스트 */}
             <div className="absolute inset-0 flex flex-col justify-center z-10 px-8">
               <div className="space-y-4">
-                <h1 className="text-5xl font-bold text-gray-900 dark:text-white leading-tight">
+                <h1 className="text-5xl font-bold text-white leading-tight">
                   누구나 편하게 소통할 수 있게,
                 </h1>
                 <h2 className="text-5xl font-bold leading-tight">

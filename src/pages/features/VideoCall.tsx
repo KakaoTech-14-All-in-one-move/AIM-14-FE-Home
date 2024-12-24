@@ -135,7 +135,7 @@ const VideoCall = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.location.href = '/login'}
+                onClick={() => window.location.href = 'https://pitching.site/login'}
                 className="text-gray-900"
               >
                 시작하기

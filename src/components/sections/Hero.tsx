@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import background from '../../assets/images/background.jpg';
+import backgroundVideo from '../../assets/videos/background.mp4';
 
 const Hero = () => {
   // 버튼 관련 상수
@@ -19,21 +19,20 @@ const Hero = () => {
       <div className="pt-24 pb-12">
         <div className="max-w-[1280px] mx-auto px-8">
           <div className={`relative rounded-[2rem] overflow-hidden ${SECTION_BG}`}
-            style={{ height: 'calc((100vh - 20rem) * 0.67)' }}>
+            style={{ height: 'calc((100vh - 10rem) * 0.67)' }}>
             
-            {/* 배경 이미지 */}
-            <div 
-              className="absolute inset-0 z-0"
-              style={{
-                backgroundImage: `url(${background})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                opacity: '0.6'
-              }}
-            />
+            {/* 배경 비디오 */}
+            <video 
+              className="absolute inset-0 w-full h-full object-cover z-0"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src={backgroundVideo} type="video/mp4" />
+            </video>
 
-            {/* 배경 오버레이 */}
+            {/* 배경 오버레이 - 불투명도 조절 가능 */}
             <div className="absolute inset-0 bg-black opacity-30 z-0" />
             
             {/* 우측 상단 버튼 */}

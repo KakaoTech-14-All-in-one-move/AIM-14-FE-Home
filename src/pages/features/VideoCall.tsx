@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Button from '../../components/common/Button.tsx';
 import { FadeIn } from '../../components/common/Animation.tsx';
 import VideoCallIcon from '../../assets/icons/VideoCallIcon.tsx';
+import videoCallImage from '../../assets/images/video_call.png';
 
 const VideoCall = () => {
   useEffect(() => {
@@ -52,6 +53,52 @@ const VideoCall = () => {
           </div>
         </motion.section>
 
+        {/* 화상 통화 기능 소개 섹션 */}
+        <section className="py-16 bg-gray-100/80 dark:bg-[#2b2d36]/80">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* 왼쪽: 화상 통화 이미지 */}
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  화상 통화 예시 이미지
+                </h3>
+                <img 
+                  src={videoCallImage} 
+                  alt="화상 통화 예시" 
+                  className="w-full rounded-lg shadow-lg"
+                />
+              </div>
+
+              {/* 오른쪽: 화상 통화 기능 설명 */}
+              <div className="flex items-center h-full">
+                <div className="bg-white dark:bg-[#374151] p-6 rounded-lg shadow-lg w-full">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Video Call (화상 통화)
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">실시간 화상 통화가 가능합니다</span>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">화면 공유 기능을 제공합니다</span>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">카메라 ON/OFF 전환이 가능합니다</span>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">마이크 음소거 기능을 제공합니다</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* 기술 스택 설명 */}
         <section className="py-16 bg-gray-100/80 dark:bg-[#2b2d36]/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,16 +111,20 @@ const VideoCall = () => {
                   <div className="space-y-4">
                     {[
                       {
-                        title: 'WebRTC',
-                        description: 'P2P 기반의 실시간 통신 프로토콜로, 브라우저 간 직접적인 데이터 교환이 가능합니다.'
+                        title: 'WebRTC & Kurento',
+                        description: 'WebRTC를 기반으로 한 실시간 P2P 통신과 Kurento 미디어 서버를 통해 고품질 영상/음성 스트리밍 및 미디어 처리를 제공합니다.'
                       },
                       {
-                        title: 'STUN/TURN 서버',
-                        description: 'NAT 통과 및 방화벽 우회를 위한 중계 서버를 통해 안정적인 연결을 보장합니다.'
+                        title: 'WebSocket',
+                        description: '실시간 양방향 통신을 통해 시그널링 서버와의 즉각적인 연결 및 미디어 스트림 상태 업데이트를 처리합니다.'
                       },
                       {
-                        title: 'MediaStream API',
-                        description: '카메라와 마이크 접근을 관리하며, 고품질의 미디어 스트리밍을 제공합니다.'
+                        title: 'Redis',
+                        description: '인메모리 캐싱을 통한 실시간 세션 관리, 통화 상태 관리 및 시그널링 서버 간 데이터 동기화를 제공합니다.'
+                      },
+                      {
+                        title: 'PostgreSQL & DynamoDB',
+                        description: 'PostgreSQL을 통한 관계형 데이터(사용자, 채널 정보) 관리와 DynamoDB를 통한 실시간 통화 세션 데이터를 효율적으로 저장합니다.'
                       }
                     ].map((tech, index) => (
                       <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg">
@@ -90,23 +141,19 @@ const VideoCall = () => {
               </FadeIn>
 
               <FadeIn delay={0.2}>
-                <div className="space-y-6">
+                <div className="space-y-6 mt-12">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                     주요 기능
                   </h2>
                   <div className="space-y-4">
                     {[
                       {
-                        title: '화면 공유',
-                        description: 'getDisplayMedia API를 활용한 화면 공유 기능으로 효과적인 프레젠테이션이 가능합니다.'
+                        title: '화상 채널 생성 및 관리',
+                        description: '채널 생성, 채널명 변경, 채널 삭제 등 통화를 위한 다양한 채널 관리 기능을 제공합니다.'
                       },
                       {
-                        title: '노이즈 캔슬링',
-                        description: 'WebRTC InsertableStreams API를 활용한 실시간 노이즈 제거로 깨끗한 음성을 전달합니다.'
-                      },
-                      {
-                        title: '적응형 비트레이트',
-                        description: '네트워크 상태에 따라 자동으로 비디오 품질을 조절하여 끊김 없는 통화를 제공합니다.'
+                        title: '화상 통화',
+                        description: '스피커 음소거, 카메라 ON/OFF, 마이크 음소거, 화면 공유, 연결 종료 등 통화에 필요한 핵심 기능을 제공합니다.'
                       }
                     ].map((feature, index) => (
                       <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg">
@@ -130,7 +177,7 @@ const VideoCall = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <FadeIn>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
-                지금 바로 시작하세요!
+                Pitching의 화상통화 기능을 지금 바로 경험해보세요!
               </h2>
               <Button
                 variant="primary"

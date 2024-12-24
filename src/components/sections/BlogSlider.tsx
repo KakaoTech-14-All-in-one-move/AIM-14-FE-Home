@@ -7,7 +7,25 @@ const BlogSlider: FC = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const visibleItems = 4;
+  
+  // 화면 크기에 따른 보이는 아이템 수 조절
+  const [visibleItems, setVisibleItems] = useState(4);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setVisibleItems(1); // 모바일
+      } else if (window.innerWidth < 1024) {
+        setVisibleItems(2); // 태블릿
+      } else {
+        setVisibleItems(4); // 데스크탑
+      }
+    };
+
+    handleResize(); // 초기 설정
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const categoryColors = {
     '에세이': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
@@ -62,7 +80,7 @@ const BlogSlider: FC = () => {
         <div className="relative">
           <button
             onClick={prevSlide}
-            className="absolute -left-12 top-1/2 -translate-y-1/2 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="absolute -left-12 top-1/2 -translate-y-1/2 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-700 hidden md:block"
           >
             <svg className="w-6 h-6 text-gray-900 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -71,7 +89,7 @@ const BlogSlider: FC = () => {
 
           <button
             onClick={nextSlide}
-            className="absolute -right-12 top-1/2 -translate-y-1/2 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-700"
+            className="absolute -right-12 top-1/2 -translate-y-1/2 p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg z-10 hover:bg-gray-50 dark:hover:bg-gray-700 hidden md:block"
           >
             <svg className="w-6 h-6 text-gray-900 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -80,19 +98,25 @@ const BlogSlider: FC = () => {
 
           <div className="overflow-hidden pb-4">
             <motion.div 
-              className="flex gap-6"
+              className="flex gap-4 md:gap-6"
               animate={{ x: `-${currentIndex * (100 / visibleItems)}%` }}
               transition={{ duration: 0.5 }}
             >
               {blogPosts.map((post, index) => (
                 <motion.div
                   key={index}
-                  className="flex-none w-[calc(25%-1.2rem)] bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                  className={`flex-none ${
+                    visibleItems === 1 
+                      ? 'w-full' 
+                      : visibleItems === 2 
+                      ? 'w-[calc(50%-0.5rem)]' 
+                      : 'w-[calc(25%-1.2rem)]'
+                  } bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer`}
                   onClick={() => navigate(`/blog/${post.slug}`)}
                   onMouseEnter={() => setIsAutoPlaying(false)}
                   onMouseLeave={() => setIsAutoPlaying(true)}
                 >
-                  <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
+                  <div className="relative w-full h-40 sm:h-48 overflow-hidden rounded-t-lg">
                     <img
                       src={post.thumbnail}
                       alt={post.title}
@@ -103,7 +127,7 @@ const BlogSlider: FC = () => {
                     />
                   </div>
                   
-                  <div className="p-6">
+                  <div className="p-4 sm:p-6">
                     <div className="flex items-center justify-between mb-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${categoryColors[post.category]}`}>
                         {post.category}
@@ -128,7 +152,7 @@ const BlogSlider: FC = () => {
             </motion.div>
           </div>
 
-          <div className="flex justify-center mt-10 gap-2">
+          <div className="flex justify-center mt-6 gap-2">
             {Array.from({ length: Math.ceil(blogPosts.length / visibleItems) }).map((_, idx) => (
               <button
                 key={idx}

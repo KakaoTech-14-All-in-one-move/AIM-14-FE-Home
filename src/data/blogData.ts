@@ -855,7 +855,7 @@ Pitching의 새롭게 추가된 AI 제스처 분석 기능은 발표의 비언�
   `
 },
 {
-  slug: 'news-new-contract',
+  slug: 'news-new-mou',
   title: 'Pitching, kakao · 구름과 업무협약(MOU) 체결',
   category: '뉴스',
   date: '2024.10.10',

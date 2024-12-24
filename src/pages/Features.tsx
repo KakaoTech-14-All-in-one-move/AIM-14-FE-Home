@@ -84,7 +84,7 @@ const Features: React.FC = () => {
             화상통화, 음성통화, 채팅, AI 피드백을 통해 실시간으로 피드백을 받고,<br />
             발표 능력을 향상시킬 수 있습니다.<br />
             각 기능은 발표자의 필요에 맞춰 설계되어 있으며,<br />
-            전문가의 도움을 통해 자신감을 ��지고 발표할 수 있도록 도와줍니다.
+            전문가의 도움을 통해 자신감을 지고 발표할 수 있도록 도와줍니다.
           </p>
         </motion.section>
 
@@ -153,7 +153,7 @@ const Features: React.FC = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => window.location.href = '/login'}
+                onClick={() => window.location.href = 'https://pitching.site/login'}
                 className="text-black"
               >
                 시작하기

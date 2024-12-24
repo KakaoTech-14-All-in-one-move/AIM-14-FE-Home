@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import Button from '../../components/common/Button.tsx';
 import { FadeIn } from '../../components/common/Animation.tsx';
 import AIAnalysisIcon from '../../assets/icons/AIAnalysisIcon.tsx';
-import pronunFeedbackImage from '../../assets/images/pronun_feedback.png';
+import pronunFeedbackImage from '../..//assets/images/pronun_feedback.png';
 import videoFeedbackImage from '../../assets/images/video_feedback.png';
 import presentationImage from '../../assets/images/presentation.png';
 

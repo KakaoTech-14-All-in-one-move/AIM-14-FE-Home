@@ -20,7 +20,7 @@ export const techPosts: TechPost[] = [
     date: '2024-10-30',
     author: 'Neo.lee (이정진)',
     readTime: '10분',
-    imageUrl: '/images/tech/websocket.jpg',
+    imageUrl: '../../assets/tech/websocket.jpg',
     content: `
 ---
 
@@ -227,7 +227,7 @@ WebSocket을 활용한 실시간 통신 구현은 복잡한 도전과제를 동�
     date: '2024-10-23',
     author: 'Toby.kim (김대현)',
     readTime: '10분',
-    imageUrl: '/images/tech/fastapi-cors.png',
+    imageUrl: '../../assets/tech/fastapi-cors.png',
     content: `
 
 안녕하세요, Pitching에서 AI 발표 피드백 Data Pipelin을 개발하는 Toby라고 합니다.
@@ -334,7 +334,7 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
     date: '2024-10-15',
     author: 'Teddy.kim (김영진)',
     readTime: '10분',
-    imageUrl: '/images/tech/redis.png',
+    imageUrl: '../../assets/tech/redis.png',
     content: `
 # 채팅방 인원 제한 구현하기: Redis와 Reactive 프로그래밍을 활용한 동시성 문제 해결
 
@@ -520,7 +520,7 @@ CORS 에러는 프론트엔드와 백엔드의 도메인이 다를 때 흔히 �
     date: '2024-10-07',
     author: 'Selina.lee (이소민)',
     readTime: '20분',
-    imageUrl: '/images/tech/cloud-first.png',
+    imageUrl: '../../assets/tech/cloud-first.png',
     content: `
 # 무중단 배포부터 모니터링까지: 안정적인 서비스 운영을 위한 핵심 가이드
 
@@ -692,7 +692,7 @@ Prometheus는 **시계열 데이터** 수집 및 분석을 위한 오픈 소스 
     date: '2024-09-28',
     author: 'Toby.kim (김대현)',
     readTime: '15분',
-    imageUrl: '/images/tech/agile-backlog.png',
+    imageUrl: '../../assets/tech/agile-backlog.png',
     content: `
 ## **애자일(Agile)로 혁신 조직의 첫 발걸음을 내딛다: 프로덕트 백로그와 스프린트 백로그**
 

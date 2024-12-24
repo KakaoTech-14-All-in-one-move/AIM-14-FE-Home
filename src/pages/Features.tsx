@@ -21,32 +21,32 @@ const features: Feature[] = [
   {
     id: 'video-call',
     title: '화상통화',
-    description: '실시간 화상 통화를 통한 1:1 발표 연습',
-    longDescription: '실시간 화상 통화로 멘토와 1:1 발표 연습을 진행하세요. 전문가의 즉각적인 피드백을 받으며 발표 실력을 향상시킬 수 있습니다.',
+    description: '실시간 화상 통화를 통한 모두가 가깝게 연결되는 기능',
+    longDescription: '실시간 화상 통화로 거리의 제약 없이 서로를 마주보며 소통하세요. 표정과 제스처까지 함께 공유하며 더 가깝고 친밀한 발표 연습이 가능합니다.',
     icon: <VideoCallIcon />,
     path: '/features/video-call'
   },
   {
     id: 'voice-call',
     title: '음성통화',
-    description: '음성 통화를 통한 발표 연습',
-    longDescription: '음성 통화로 발표 연습에 집중하세요. 목소리 톤, 발음, 속도 등 음성에 초점을 맞춘 피드백을 받을 수 있습니다.',
+    description: '음성 통화를 통한 누구나 편안하게 대화할 수 있는 기능',
+    longDescription: '편안한 음성 통화로 부담 없이 대화를 시작하세요. 시각적 긴장감 없이 자연스러운 발표 연습을 진행할 수 있습니다.',
     icon: <VoiceCallIcon />,
     path: '/features/voice-call'
   },
   {
     id: 'chat',
     title: '채팅',
-    description: '실시간 채팅을 통한 피드백',
-    longDescription: '실시간 채팅으로 즉각적인 피드백을 주고받으세요. 발표 중이나 후에 상세한 피드백을 텍스트로 공유할 수 있습니다.',
+    description: '실시간 채팅을 통한 언제든지 원할때 서로 연결되는 기능',
+    longDescription: '시간과 장소에 구애받지 않고 실시간 채팅으로 소통하세요. 언제 어디서나 즉각적인 피드백을 주고받으며 지속적인 발전이 가능합니다.',
     icon: <ChatIcon />,
     path: '/features/chat'
   },
   {
     id: 'ai-feedback',
     title: 'AI 발표 피드백',
-    description: 'AI가 제공하는 실시간 발표 분석 및 피드백',
-    longDescription: 'AI가 당신의 발표를 실시간으로 분석하고 개선점을 제안합니다. 자세, 목소리, 시선 등 다양한 측면에서 객관적인 피드백을 받아보세요.',
+    description: 'AI가 제공하는 발표영상 분석 및 행동, 음성 피드백을 주는 기능',
+    longDescription: 'AI가 당신의 발표를 실시간으로 분석하여 시선처리, 얼굴 표정, 제스처, 자세, 감정표현부터 목소리 톤, 발화 속도, 발음 정확도까지 종합적인 피드백을 제공합니다.',
     icon: <AIAnalysisIcon />,
     path: '/features/ai-feedback'
   }

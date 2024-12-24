@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Button from '../../components/common/Button.tsx';
 import { FadeIn } from '../../components/common/Animation.tsx';
 import ChatIcon from '../../assets/icons/ChatIcon.tsx';
+import chatImage from '../../assets/images/chatting.png';
 
 const Chat = () => {
   useEffect(() => {
@@ -52,6 +53,52 @@ const Chat = () => {
           </div>
         </motion.section>
 
+        {/* 채팅 기능 소개 섹션 */}
+        <section className="py-16 bg-gray-100/80 dark:bg-[#2b2d36]/80">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* 왼쪽: 채팅 이미지 */}
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  채팅 예시 이미지
+                </h3>
+                <img 
+                  src={chatImage} 
+                  alt="실시간 채팅 예시" 
+                  className="w-full rounded-lg shadow-lg"
+                />
+              </div>
+
+              {/* 오른쪽: 채팅 기능 설명 */}
+              <div className="flex items-center h-full">
+                <div className="bg-white dark:bg-[#374151] p-6 rounded-lg shadow-lg w-full">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Chatting (실시간 채팅)
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">실시간으로 메시지를 주고받을 수 있습니다</span>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">채팅방 생성 및 초대가 가능합니다</span>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">채팅 내역이 저장되어 나중에도 확인할 수 있습니다</span>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">메시지 검색 기능을 제공합니다</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* 기술 스택 설명 */}
         <section className="py-16 bg-gray-100/80 dark:bg-[#2b2d36]/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,16 +111,20 @@ const Chat = () => {
                   <div className="space-y-4">
                     {[
                       {
-                        title: 'Socket.IO',
-                        description: '양방향 실시간 이벤트 기반 통신을 제공하여 즉각적인 메시지 전달이 가능합니다.'
+                        title: 'WebSocket',
+                        description: '실시간 양방향 통신을 통해 지연 없는 메시지 전송과 즉각적인 상태 업데이트를 제공합니다.'
                       },
                       {
-                        title: 'Redis Pub/Sub',
-                        description: '분산 환경에서도 안정적인 메시지 전달을 보장하는 메시지 브로커 시스템을 사용합니다.'
+                        title: 'RabbitMQ',
+                        description: '메시지 큐 시스템을 통해 안정적인 메시지 전달과 부하 분산을 보장하며, 채팅 서버 간 효율적인 메시지 라우팅을 구현합니다.'
                       },
                       {
-                        title: 'MongoDB',
-                        description: '채팅 기록을 효율적으로 저장하고 조회할 수 있는 NoSQL 데이터베이스를 활용합니다.'
+                        title: 'Redis',
+                        description: '인메모리 데이터 스토리지를 활용한 실시간 채팅 상태 관리 및 세션 관리로 빠른 응답 속도를 제공합니다.'
+                      },
+                      {
+                        title: '분산 아키텍처',
+                        description: 'WebSocket, RabbitMQ, Redis를 결합한 확장 가능한 분산 채팅 시스템으로 다수 사용자의 실시간 통신을 안정적으로 지원합니다.'
                       }
                     ].map((tech, index) => (
                       <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg">
@@ -97,16 +148,16 @@ const Chat = () => {
                   <div className="space-y-4">
                     {[
                       {
-                        title: '1:1 채팅',
-                        description: '개인 간 프라이빗 채팅으로 효율적인 1:1 커뮤니케이션이 가능합니다.'
+                        title: '채팅 채널',
+                        description: '채널 생성, 채널명 변경, 채널 삭제 등 다양한 채널 관리 기능을 제공하여 효율적인 그룹 커뮤니케이션이 가능합니다.'
                       },
                       {
                         title: '그룹 채팅',
-                        description: '다수의 사용자가 참여할 수 있는 그룹 채팅방을 제공합니다.'
+                        description: '다수의 사용자가 참여하는 그룹 채팅방에서 실시간으로 메시지를 주고받으며 채팅 검색 기능을 제공합니다.'
                       },
                       {
-                        title: '파일 공유',
-                        description: '이미지, 문서 등 다양한 파일을 손쉽게 공유할 수 있습니다.'
+                        title: '1대1 채팅',
+                        description: '사용자 간 프라이빗한 1:1 대화를 나눌 수 있으며, 실시간 메시지 작성 및 전송이 가능합니다.'
                       }
                     ].map((feature, index) => (
                       <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg">

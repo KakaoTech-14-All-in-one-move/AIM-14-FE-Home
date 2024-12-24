@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Button from '../../components/common/Button.tsx';
 import { FadeIn } from '../../components/common/Animation.tsx';
 import VoiceCallIcon from '../../assets/icons/VoiceCallIcon.tsx';
+import voiceCallImage from '../../assets/images/voice_call.png';
 
 const VoiceCall = () => {
   useEffect(() => {
@@ -52,6 +53,48 @@ const VoiceCall = () => {
           </div>
         </motion.section>
 
+        {/* 음성 통화 기능 소개 섹션 */}
+        <section className="py-16 bg-gray-100/80 dark:bg-[#2b2d36]/80">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* 왼쪽: 음성 통화 이미지 */}
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  음성 통화 예시 이미지
+                </h3>
+                <img 
+                  src={voiceCallImage} 
+                  alt="음성 통화 예시" 
+                  className="w-full rounded-lg shadow-lg"
+                />
+              </div>
+
+              {/* 오른쪽: 음성 통화 기능 설명 */}
+              <div className="flex items-center h-full">
+                <div className="bg-white dark:bg-[#374151] p-6 rounded-lg shadow-lg w-full">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Voice Call (음성 통화)
+                  </h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">실시간 음성 통화가 가능합니다</span>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">음성 채널 생성 및 관리가 가능합니다</span>
+                    </li>
+                    <li className="flex items-start space-x-3">
+                      <span className="text-blue-500 dark:text-blue-400 font-bold">•</span>
+                      <span className="text-gray-700 dark:text-blue-400">마이크 음소거 기능을 제공합니다</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* 기술 스택 설명 */}
         <section className="py-16 bg-gray-100/80 dark:bg-[#2b2d36]/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,16 +107,20 @@ const VoiceCall = () => {
                   <div className="space-y-4">
                     {[
                       {
-                        title: 'WebRTC Audio',
-                        description: '브라우저 기반의 실시간 음성 통신으로 지연 없는 고품질 통화를 제공합니다.'
+                        title: 'WebRTC & Kurento',
+                        description: 'WebRTC를 기반으로 한 실시간 P2P 통신과 Kurento 미디어 서버를 통해 고품질 음성 스트리밍 및 미디어 처리를 제공합니다.'
                       },
                       {
-                        title: 'Opus Codec',
-                        description: '최적화된 오디오 코덱으로 낮은 대역폭에서도 고품질 음성을 전달합니다.'
+                        title: 'WebSocket',
+                        description: '실시간 양방향 ��신을 통해 시그널링 서버와의 즉각적인 연결 및 음성 스트림 상태 업데이트를 처리합니다.'
                       },
                       {
-                        title: 'Echo Cancellation',
-                        description: '고급 에코 제거 알고리즘으로 깨끗한 음성 품질을 보장합니다.'
+                        title: 'Redis',
+                        description: '인메모리 캐싱을 통한 실시간 세션 관리, 통화 상태 관리 및 시그널링 서버 간 데이터 동기화를 제공합니다.'
+                      },
+                      {
+                        title: 'PostgreSQL & DynamoDB',
+                        description: 'PostgreSQL을 통해 관계형 데이터(사용자, 채널 정보) 관리와 DynamoDB를 통한 실시간 음성 통화 세션 데이터를 효율적으로 저장합니다.'
                       }
                     ].map((tech, index) => (
                       <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg">
@@ -90,23 +137,19 @@ const VoiceCall = () => {
               </FadeIn>
 
               <FadeIn delay={0.2}>
-                <div className="space-y-6">
+                <div className="space-y-6 mt-12">
                   <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                     주요 기능
                   </h2>
                   <div className="space-y-4">
                     {[
                       {
-                        title: '노이즈 캔슬링',
-                        description: '주변 소음을 효과적으로 제거하여 선명한 음성을 전달이 가능합니다.'
+                        title: '음성 채널',
+                        description: '채널 생성, 채널명 변경, 채널 삭제 등 음성 통화를 위한 다양한 채널 관리 기능을 제공합니다.'
                       },
                       {
-                        title: '다자간 통화',
-                        description: '최대 8명까지 동시 음성 통화가 가능한 그룹 통화를 지원합니다.'
-                      },
-                      {
-                        title: '자동 음량 조절',
-                        description: '상황에 따라 자동으로 음량을 조절하여 최적의 통화 환경을 제공합니다.'
+                        title: '음성 ���화',
+                        description: '스피커 음소거, 마이크 음소거, 연결 종료 등 음성 통화에 필요한 핵심 기능을 제공합니다.'
                       }
                     ].map((feature, index) => (
                       <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg">

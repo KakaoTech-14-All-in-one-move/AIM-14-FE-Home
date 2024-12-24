@@ -372,7 +372,7 @@ const TechStack: FC = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl"
           >
-            Pitching 개발��은 이러한 기술 & 도구들을 활용하여 개발 및 협업을 진행해요.
+            Pitching은 이러한 기술 & 도구들을 활용하여 개발 및 협업을 진행해요.
           </motion.p>
         </div>
 

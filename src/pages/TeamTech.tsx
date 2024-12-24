@@ -11,28 +11,28 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    name: "김철수",
-    role: "AI 엔지니어",
-    description: "음성 인식 및 자연어 처리 전문가. 5년간의 머신러닝 모델 개발 경험을 보유하고 있습니다.",
-    skills: ["TensorFlow", "PyTorch", "NLP", "Speech Recognition"]
+    name: "Toby.kim (김대현)",
+    role: "AI Engineer, Product Manager",
+    description: "AI 기술로 모두가 자신감 있게 발표할 수 있는 세상을 만들어가는 PM 겸 AI 엔지니어입니다.",
+    skills: ["PyTorch", "Computer Vision", "Multimodal", "LLM", "MLOPS", "Product Management"]
   },
   {
-    name: "이영희",
-    role: "프론트엔드 개발자",
-    description: "사용자 경험을 중시하는 UI/UX 전문가. React와 TypeScript를 활용한 웹 애플리케이션 개발을 담당합니다.",
-    skills: ["React", "TypeScript", "Tailwind CSS", "Next.js"]
+    name: "Teddy.kim (김영진)",
+    role: "Full Stack Developer (Chatting, Login)",
+    description: "누구나 편안하게 대화할 수 있는 플랫폼을 구축하는 백엔드 개발자입니다.",
+    skills: ["Spring", "Java", "Redis", "RabbitMQ"]
   },
   {
-    name: "박지민",
-    role: "백엔드 개발자",
-    description: "클라우드 인프라 및 서버 아키텍처 전문가. 확장 가능한 시스템 설계와 구현을 담당합니다.",
-    skills: ["Node.js", "Python", "AWS", "Docker"]
+    name: "Neo.lee (이정진)",
+    role: "Full Stack Developer (Media Chat)",
+    description: "기술의 경계를 넘어 모두가 가깝게 연결되는 미디어 통신의 새로운 길을 여는 개발자입니다.",
+    skills: ["Spring", "Java", "Websocket", "WebRTC"]
   },
   {
-    name: "정민수",
-    role: "UX 리서처",
-    description: "사용자 연구 및 서비스 기획 전문가. 사용자 중심의 서비스 개선을 이끌어냅니다.",
-    skills: ["User Research", "Prototyping", "Service Planning", "Data Analysis"]
+    name: "Selina.lee (이소민)",
+    role: "Cloud Engineer",
+    description: "안정적이고 확장 가능한 인프라로 더 많은 사람들의 소통을 지원하는 Cloud 엔지니어입니다.",
+    skills: ["Docker", "AWS", "CI/CD", "Jenkins", "Kubernetes"]
   }
 ];
 
@@ -67,7 +67,7 @@ const TeamTech: FC = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mt-4 text-xl text-gray-600 dark:text-gray-300"
               >
-                혁신적인 발표 연습 서비스를 만드는 전문가들을 소개합니다
+                Pitching 개발팀은 "모두가 자신 있게 소통하며 서로 연결될 수 있는 세상"을 만들기 위해 노력합니다.
               </motion.p>
             </div>
 
